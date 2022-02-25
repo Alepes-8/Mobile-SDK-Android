@@ -150,6 +150,11 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
+                        @Override
+                        public void onProductChanged(BaseProduct baseProduct) {
+
+                        }
+
                         //@Override
                         //public void onProductChanged(BaseProduct baseProduct) {
 
