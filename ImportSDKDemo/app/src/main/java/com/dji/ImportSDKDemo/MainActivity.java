@@ -1,6 +1,7 @@
 package com.dji.ImportSDKDemo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -60,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
     TextView output;
-    Button no, yes, page2;
+    Button no, yes, page2, goodConnection;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,15 +78,13 @@ public class MainActivity extends AppCompatActivity {
         no = findViewById(R.id.buttonChangeNo);
         yes = findViewById(R.id.buttonChangeYes);
         page2 = (Button) findViewById(R.id.newPage);
-
-
-        TextView helloworld = (Button) findViewById(R.id.newPage);
-        helloworld.setText("Test");
-        Log.v("methord","hejsan");
+        goodConnection = findViewById(R.id.connection);
         //Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
 
     }
+
+
     public void changeToYes(View v){
         output.setText("YES");
     }
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onRegister(DJIError djiError) {
                             if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
                                 showToast("Register Success");
+                                goodConnection.setText("Register Success");
                                 DJISDKManager.getInstance().startConnectionToProduct();
                             } else {
                                 showToast("Register sdk fails, please check the bundle id and network connection!");
