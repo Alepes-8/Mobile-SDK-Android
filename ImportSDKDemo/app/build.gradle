@@ -8,6 +8,10 @@ android {
     compileSdk 32
     useLibrary 'org.apache.http.legacy'
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.dji.ImportSDKDemo"
         minSdk 21

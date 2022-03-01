@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
+    TextView output;
+    Button no, yes, page2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +72,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+        output = findViewById(R.id.YesOrNo);
+        no = findViewById(R.id.buttonChangeNo);
+        yes = findViewById(R.id.buttonChangeYes);
+        page2 = (Button) findViewById(R.id.newPage);
 
+
+        TextView helloworld = (Button) findViewById(R.id.newPage);
+        helloworld.setText("Test");
+        Log.v("methord","hejsan");
         //Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
 
+    }
+    public void changeToYes(View v){
+        output.setText("YES");
+    }
+
+    public void changeToNo(View v){
+        output.setText("NO");
+    }
+
+    public void openActivity2(View v){
+        Intent intent = new Intent(this, SecondActivity.class);
+        startActivity(intent);
     }
 
     /**
