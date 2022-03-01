@@ -6,6 +6,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdk 32
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.dji.ImportSDKDemo"
@@ -15,6 +16,9 @@ android {
         versionName "1.0"
         multiDexEnabled = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a'
+        }
     }
 
     packagingOptions{
@@ -38,6 +42,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -53,7 +60,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation ('com.dji:dji-sdk:4.16')
-    compileOnly ('com.dji:dji-sdk-provided:4.16')
-    implementation("androidx.multidex:multidex:2.0.1")
+    implementation 'com.dji:dji-sdk:4.16'
+    compileOnly 'com.dji:dji-sdk-provided:4.16'
+    implementation "androidx.multidex:multidex:2.0.1"
 }

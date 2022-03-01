@@ -37,14 +37,17 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] REQUIRED_PERMISSION_LIST = new String[]{
             Manifest.permission.BLUETOOTH,
             Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH_SCAN,
             Manifest.permission.VIBRATE,
             Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.RECORD_AUDIO,
+            //Manifest.permission.WAKE_LOCK,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_NETWORK_STATE,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.CHANGE_WIFI_STATE,
-            Manifest.permission.RECORD_AUDIO,
+            //Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.READ_PHONE_STATE,
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.v(TAG, djiError.getDescription());
                         }
 
+
                         @Override
                         public void onProductDisconnect() {
                             Log.d(TAG, "onProductDisconnect");
@@ -155,10 +159,6 @@ public class MainActivity extends AppCompatActivity {
 
                         }
 
-                        //@Override
-                        //public void onProductChanged(BaseProduct baseProduct) {
-
-                        //}
 
                         @Override
                         public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent,
