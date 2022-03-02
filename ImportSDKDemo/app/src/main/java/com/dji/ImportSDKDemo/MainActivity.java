@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
-    TextView output;
+    TextView output, status;
     Button no, yes, page2;
 
     @Override
@@ -76,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
         no = findViewById(R.id.buttonChangeNo);
         yes = findViewById(R.id.buttonChangeYes);
         page2 = (Button) findViewById(R.id.newPage);
-
+        status = findViewById(R.id.Status);
 
         TextView helloworld = (Button) findViewById(R.id.newPage);
         helloworld.setText("Test");
+        status.setText("Test");
         Log.v("methord","hejsan");
         //Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         if (missingPermission.isEmpty()) {
             startSDKRegistration();
         } else {
+            status.setText("Missing permissions!!!");
             showToast("Missing permissions!!!");
         }
     }
@@ -150,15 +152,18 @@ public class MainActivity extends AppCompatActivity {
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
+                    status.setText("registering, pls wait...");
                     showToast("registering, pls wait...");
 
                     DJISDKManager.getInstance().registerApp(MainActivity.this.getApplicationContext(), new DJISDKManager.SDKManagerCallback() {
                         @Override
                         public void onRegister(DJIError djiError) {
                             if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
+                                status.setText("Register Success");
                                 showToast("Register Success");
                                 DJISDKManager.getInstance().startConnectionToProduct();
                             } else {
+                                status.setText("Register sdk fails, please check the bundle id and network connection!");
                                 showToast("Register sdk fails, please check the bundle id and network connection!");
                             }
                             Log.v(TAG, djiError.getDescription());
