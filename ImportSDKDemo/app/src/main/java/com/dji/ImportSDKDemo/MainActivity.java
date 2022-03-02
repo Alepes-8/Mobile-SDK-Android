@@ -59,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
-    TextView output, status;
-    Button no, yes, page2;
-
+    TextView status;
+    boolean access;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,31 +71,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-        output = findViewById(R.id.YesOrNo);
-        no = findViewById(R.id.buttonChangeNo);
-        yes = findViewById(R.id.buttonChangeYes);
-        page2 = (Button) findViewById(R.id.newPage);
         status = findViewById(R.id.Status);
-
-        TextView helloworld = (Button) findViewById(R.id.newPage);
-        helloworld.setText("Test");
-        status.setText("Test");
-        Log.v("methord","hejsan");
+        access = true;
         //Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
 
     }
-    public void changeToYes(View v){
-        output.setText("YES");
-    }
-
-    public void changeToNo(View v){
-        output.setText("NO");
-    }
 
     public void openActivity2(View v){
-        Intent intent = new Intent(this, SecondActivity.class);
-        startActivity(intent);
+        if(access == true){
+            Intent intent = new Intent(this, SecondActivity.class);
+            startActivity(intent);
+        }else{
+            status.setText("You can't enter due to missing permissions");
+        }
     }
 
     /**
@@ -161,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                             if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
                                 status.setText("Register Success");
                                 showToast("Register Success");
+                                access = true;
                                 DJISDKManager.getInstance().startConnectionToProduct();
                             } else {
                                 status.setText("Register sdk fails, please check the bundle id and network connection!");
